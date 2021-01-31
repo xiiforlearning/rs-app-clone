@@ -7,14 +7,25 @@ import { RegisterPage } from './pages/student/RegisterPage'
 import { RegisterPageMentors } from './pages/mentor/RegisterPage'
 import { DashboardPage } from './pages/DashboardPage'
 import { MainPage } from './pages/MainPage'
-
+import  Table from './schedule/App'
+import {createStore,applyMiddleware,compose} from 'redux'
+import {Provider} from 'react-redux'
+import reducers from './schedule/reducers'
+import thunk from 'redux-thunk'
+import StudentTable from './schedule/student'
+const store = createStore(reducers,compose(applyMiddleware(thunk)))
 export const useRoutes = (isAuthenticated, isMentor) => {
     if(isAuthenticated) {
         if(!isMentor) {
             return(
-                <Switch>
+                <Switch> 
                     <Route path="/main" exact>
-                        <MainPage />
+                    <MainPage />
+                    </Route>
+                    <Route path="/schedule" exact>
+                    <Provider store= {store}>
+                    <StudentTable/>
+                    </Provider>
                     </Route>
                     <Route path="/dashboard" exact>
                         <DashboardPage />
@@ -25,13 +36,18 @@ export const useRoutes = (isAuthenticated, isMentor) => {
         }
         return(
             <Switch>
-                <Route path="/mainMentors" exact>
+                <Route path="/mentor" exact>
                     <MainPage />
                 </Route>
+                <Route path="/schedule" exact>
+                    <Provider store= {store}>
+                    <Table/>
+                    </Provider>
+                    </Route>
                 <Route path="/dashboardMentors" exact>
                     <DashboardPage />
                 </Route>
-                <Redirect to="/mainMentors" />
+                <Redirect to="/mentor" />
             </Switch>
         )
 

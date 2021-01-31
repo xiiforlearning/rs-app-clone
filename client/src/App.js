@@ -6,6 +6,8 @@ import { AuthContext } from './context/AuthContext'
 import { NavbarNoAuth } from './components/NavbarNoAuth'
 import { Navbar } from './components/Navbar'
 import 'materialize-css'
+ 
+
 
 function App() {
   const { login, logout, token, userId, root } = useAuth()

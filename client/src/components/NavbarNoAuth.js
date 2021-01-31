@@ -22,8 +22,8 @@ export class NavbarNoAuth extends Component {
                 <div className="nav-wrapper blue-grey darken-1">
                     <NavLink to="/" className="brand-logo">Home</NavLink>
                     <ul className="right">
-                        <li><a className="dropdown-trigger" href="#" data-target="dropdown1">Login<i className="material-icons right">arrow_drop_down</i></a></li>
-                        <li><a className="dropdown-trigger" href="#" data-target="dropdown2">Register<i className="material-icons right">arrow_drop_down</i></a></li>
+                        <li><a href='/#' className="dropdown-trigger"  data-target="dropdown1">Login<i className="material-icons right">arrow_drop_down</i></a></li>
+                        <li><a href='/#' className="dropdown-trigger"  data-target="dropdown2">Register<i className="material-icons right">arrow_drop_down</i></a></li>
                     </ul>
                 </div>
             </nav>
