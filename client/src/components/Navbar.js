@@ -39,7 +39,7 @@ export const Navbar = () => {
                     <ul className="right">
                          <li onClick={()=>{ setStatus1('none'); setStatus2('flex'); }} className = {status1}><div className='pointer' >My Profile<i className="material-icons right">arrow_drop_down</i></div></li>
                          <ul ref = {menuRef} className = {[status2,'drop'].join(' ')} >
-                              <li><NavLink to="#"><i className="material-icons left">visibility</i>View</NavLink></li>
+                              <li><NavLink to="profile"><i className="material-icons left">visibility</i>View</NavLink></li>
                               <li><NavLink to="#"><i className="material-icons left">border_color</i>Edit</NavLink></li>
                               <li className="divider"></li>
                               <li><a href="/#" onClick={logoutHandler}><i className="material-icons left">exit_to_app</i>Logout</a></li>

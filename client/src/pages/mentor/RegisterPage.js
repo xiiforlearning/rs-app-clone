@@ -2,11 +2,15 @@ import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useHttp } from '../../hooks/http.hook'
 import { useMessage } from '../../hooks/message.hook'
+import { useDispatch} from 'react-redux'
+import {createPost} from '../../actions/posts'
+
 
 export const RegisterPageMentors = () => {
     const { loading, request, error , clearErrors } = useHttp()
     const history = useHistory()
     const message = useMessage()
+    const dispatch = useDispatch()
     const [form, setForm] = useState({
         username: '',
         firstName: '',
@@ -15,14 +19,34 @@ export const RegisterPageMentors = () => {
         email: '',
         password: ''
     })
-
+    const [form2, setForm2] = useState({
+        username: '',
+        firstName: '',
+        lastName: '',
+        location: '',
+        email: '',
+        mentor: true,
+        telegram:'Not given',
+        phoneNumber:'Not given',
+        about:`About info isn't written`,
+        english:'Not given',
+        education:'Empty',
+        mark:[],
+        tasks:[],
+        mentorName:''  ,
+        submitedTasks:[]
+       
+    })
     useEffect(() => {
         message(error)
         clearErrors()
     }, [error, message, clearErrors])
 
     const changeHandler = event => {
+        event.preventDefault()
         setForm({ ...form, [event.target.name]: event.target.value })
+        setForm2({ ...form2, [event.target.name]: event.target.value })
+        
     }
 
     const registerHandler = async () => {
@@ -32,6 +56,8 @@ export const RegisterPageMentors = () => {
             setTimeout(() => {
                 history.push('/loginMentors')
             }, 1000) 
+            dispatch(createPost(form2))
+            localStorage.setItem("email", form2.email);
         } catch (e) {}
     }
 
@@ -71,7 +97,7 @@ export const RegisterPageMentors = () => {
                                 </div>
                                 <div className="input-field">
                                 <i className="material-icons prefix">lock_open</i>
-                                    <input placeholder="Ask your personal password from administration" id="password" type="password" name="password" disabled="true" />
+                                    <input placeholder="Ask your personal password from administration" id="password" type="password" name="password" disabled={true} />
                                 </div>
                             </div>
                         </div>

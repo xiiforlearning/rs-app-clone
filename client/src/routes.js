@@ -13,6 +13,13 @@ import {Provider} from 'react-redux'
 import reducers from './schedule/reducers'
 import thunk from 'redux-thunk'
 import StudentTable from './schedule/student'
+import {Profile} from './pages/profile/student'
+import {MainMentor} from './pages/MainMentor'
+import {StudentList} from './pages/studentList/studentList'
+import {TaskCreator} from './pages/taskCreator/task'
+import {Submitask} from './pages/submit/submit'
+import {CheckList} from './pages/checklist/checklist'
+import {Score} from './pages/score/score'
 const store = createStore(reducers,compose(applyMiddleware(thunk)))
 export const useRoutes = (isAuthenticated, isMentor) => {
     if(isAuthenticated) {
@@ -21,6 +28,15 @@ export const useRoutes = (isAuthenticated, isMentor) => {
                 <Switch> 
                     <Route path="/main" exact>
                     <MainPage />
+                    </Route>
+                    <Route path="/profile" exact>
+                    <Profile/>
+                    </Route>
+                    <Route path="/submit" exact>
+                    <Submitask/>
+                    </Route>
+                    <Route path="/score" exact>
+                    <Score/>
                     </Route>
                     <Route path="/schedule" exact>
                     <Provider store= {store}>
@@ -37,8 +53,23 @@ export const useRoutes = (isAuthenticated, isMentor) => {
         return(
             <Switch>
                 <Route path="/mentor" exact>
-                    <MainPage />
+                    <MainMentor />
                 </Route>
+                <Route path="/profile" exact>
+                    <Profile/>
+                    </Route>
+                    <Route path="/studentList" exact>
+                    <StudentList/>
+                    </Route>
+                    <Route path="/tasks" exact>
+                    <TaskCreator/>
+                    </Route>
+                    <Route path="/check" exact>
+                    <CheckList/>
+                    </Route>
+                    <Route path="/score" exact>
+                    <Score/>
+                    </Route>
                 <Route path="/schedule" exact>
                     <Provider store= {store}>
                     <Table/>

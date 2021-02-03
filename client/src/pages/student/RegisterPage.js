@@ -2,11 +2,14 @@ import React, { useState, useEffect } from 'react'
 import { useHttp } from '../../hooks/http.hook'
 import { useMessage } from '../../hooks/message.hook'
 import { useHistory } from 'react-router-dom'
-
+import { useDispatch} from 'react-redux'
+import {createPost} from '../../actions/posts'
+import {useSelector} from 'react-redux'
 export const RegisterPage = () => {
     const { loading, request, error , clearErrors } = useHttp()
     const message = useMessage()
     const history = useHistory()
+    const dispatch = useDispatch()
     const [form, setForm] = useState({
         username: '',
         firstName: '',
@@ -15,6 +18,25 @@ export const RegisterPage = () => {
         email: '',
         password: ''
     })
+    const posts = useSelector((state)=>state.posts)
+ 
+    const [form2, setForm2] = useState({
+        username: '',
+        firstName: '',
+        lastName: '',
+        location: '',
+        email: '',
+        mentor: false,
+        telegram:'Not given',
+        phoneNumber:'Not given',
+        about:`About info isn't written`,
+        english:'Not given',
+        education:'Empty',
+        mark:[],
+        tasks:[],
+        mentorName:'Empty',
+        submitedTasks:[]    
+    })
 
     useEffect(() => {
         message(error)
@@ -22,7 +44,10 @@ export const RegisterPage = () => {
     }, [error, message, clearErrors])
 
     const changeHandler = event => {
+        event.preventDefault()
         setForm({ ...form, [event.target.name]: event.target.value })
+        setForm2({ ...form2, [event.target.name]: event.target.value })
+        
     }
 
     const registerHandler = async () => {
@@ -32,7 +57,12 @@ export const RegisterPage = () => {
             setTimeout(() => {
                 history.push('/login')
             }, 1000) 
+            form2.tasks=posts[0].tasks
+            dispatch(createPost(form2))
+            localStorage.setItem("email", form2.email);
         } catch (e) {}
+
+        
     }
 
     return (
