@@ -29,6 +29,7 @@ export const LoginPage = () => {
         try {
             const data = await request('/api/auth/login', 'POST', { ...form })
             auth.login(data.token, data.userId, data.root)
+            localStorage.setItem("email", form.email);
         } catch (e) {}
     }
 

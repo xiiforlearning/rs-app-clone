@@ -145,6 +145,11 @@ router.post(
         if(!user) {
             return res.status(400).json({ message: 'User doesn\'t found' })
         }
+        
+        if(password !== user.password) {
+            return res.status(400).json({ message: 'Password isn\'t correct' })
+        }
+
 
         const token = jwt.sign(
             { userId: user.id },
